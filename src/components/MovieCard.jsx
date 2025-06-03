@@ -1,18 +1,18 @@
 import React from 'react'
 
-const MovieCard = () => {
+const MovieCard = ({ movie }) => {
   return (
     <div className="movie-card">
         <div className="movie-image">
-            <img src="https://media.themoviedb.org/t/p/w300_and_h450_bestv2/jYfMTSiFFK7ffbY2lay4zyvTkEk.jpg" alt="" />
+            <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="" />
         </div>
         <div className="movie-detail">
             <div className="">
-                <h2>Movie title</h2>
-                <p>10-10-2005</p>
+                <h2>{movie.title}</h2>
+                <p>{movie.release_date}</p>
             </div>
             <span>
-                <i class='bx bxs-star'></i> 7.7
+                <i className='bx bxs-star'></i> {movie.vote_average.toFixed(1)}
             </span>
         </div>
     </div>
