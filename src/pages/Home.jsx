@@ -10,11 +10,16 @@ const Home = () => {
   const page = searchParam.get("page") || 1;
   const [current, setCurrentPage] = useState(parseInt(page));
 
+  const search = searchParam.get("search") || "";
+
   const getMovie = async () => {
+    const query = search
+      ? `https://api.themoviedb.org/3/search/movie?api_key=1d4fca46febab8295014ed7cfb3a54fd&query=${search}`
+      : `https://api.themoviedb.org/3/movie/popular?api_key=1d4fca46febab8295014ed7cfb3a54fd&page=${current}`;
+
     try {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=1d4fca46febab8295014ed7cfb3a54fd&page=${current}`
-      );
+      const res = await fetch(query);
+
       if (!res.ok) {
         throw new Error("Failed to fetch movie");
       }
@@ -28,7 +33,7 @@ const Home = () => {
 
   useEffect(() => {
     getMovie();
-  }, [current]);
+  }, [current, search]);
 
   return (
     <div className="home-container">
