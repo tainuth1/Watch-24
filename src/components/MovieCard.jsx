@@ -1,8 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const MovieCard = ({ movie }) => {
   return (
-    <div className="movie-card">
+    <Link to={`/movie/${movie.id}`} className="movie-card">
         <div className="movie-image">
             <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="" />
         </div>
@@ -15,7 +16,7 @@ const MovieCard = ({ movie }) => {
                 <i className='bx bxs-star'></i> {movie.vote_average.toFixed(1)}
             </span>
         </div>
-    </div>
+    </Link>
   )
 }
 
