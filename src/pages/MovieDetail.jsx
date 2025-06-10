@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 
 const MovieDetail = () => {
   const { id } = useParams();
-  const [movieDetail, setMoviewDetail] = useState({});
+  const [movieDetail, setMoviewDetail] = useState(null);
   const [loading, setLoading] = useState(false);
+  let favMovie = JSON.parse(localStorage.getItem("favorite"));
 
   const fetchMovieDeatail = async () => {
     setLoading(true);
@@ -29,7 +30,12 @@ const MovieDetail = () => {
     fetchMovieDeatail();
   }, [id]);
 
-  if (loading) return <h1>Loading...</h1>;
+  const addToFav = () => {
+    favMovie.push(movieDetail);
+    localStorage.setItem("favorite", JSON.stringify(favMovie));
+  };
+
+  if (!movieDetail) return <h1>Loading...</h1>;
 
   return (
     <div>
@@ -56,15 +62,25 @@ const MovieDetail = () => {
             <p>{movieDetail.runtime}m</p>
           </div>
           <div className="category">
-            {/* {movieDetail.genres.map((gen) => (
-              <span key={gen.id}>{gen}</span>
-            ))} */}
+            {movieDetail.genres.map((genre) => (
+              <span key={genre.id}>{genre.name}</span>
+            ))}
           </div>
           <h3>Overview</h3>
           <p>{movieDetail.overview}</p>
           <div className="btns">
             <button className="btn">Watch Trailer</button>
-            <button className="btn">Watch Movie</button>
+            <a
+              href={movieDetail.homepage}
+              className="btn"
+              target="_blank"
+              style={{ textDecoration: "none" }}
+            >
+              Watch Movie
+            </a>
+            <button onClick={addToFav} className="btn">
+              Add to favorite
+            </button>
           </div>
         </div>
       </div>

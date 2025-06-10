@@ -48,6 +48,7 @@
     align-items: center;
     gap: 10px;
     margin-top: 10px;
+    margin-bottom: 30px;
 }
 .category span{
     background-color: black;
@@ -79,6 +80,9 @@
 }
 .btns .btn:first-child{
     background-color: rgb(234, 36, 36);
+}
+.btns .btn:nth-child(2){
+    background-color: rgb(40, 36, 36);
 }
 .btns .btn:last-child{
     background-color: rgb(40, 36, 36);

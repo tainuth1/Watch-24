@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import "./navbar.css"
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -27,7 +27,7 @@ const Navbar = () => {
             <button>Search</button>
         </form>
 
-        <button className='fav-btn'>Favorite</button>
+        <Link to={"favorite"} style={{textDecoration: "none"}} className='fav-btn'>Favorite</Link>
 
         </div>
     </div>
