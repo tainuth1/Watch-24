@@ -7,6 +7,7 @@ const MovieDetail = () => {
   const [movieDetail, setMoviewDetail] = useState(null);
   const [loading, setLoading] = useState(false);
   let favMovie = JSON.parse(localStorage.getItem("favorite"));
+  const [movieKey, setMovieKey] = useState("");
 
   const fetchMovieDeatail = async () => {
     setLoading(true);
@@ -26,8 +27,22 @@ const MovieDetail = () => {
     }
   };
 
+  const getMovieTrailer = async () => {
+    try {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=1d4fca46febab8295014ed7cfb3a54fd`
+      );
+      console.log(res);
+      const data = await res.json();
+      setMovieKey(data.results[0].key);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchMovieDeatail();
+    getMovieTrailer();
   }, [id]);
 
   const addToFav = () => {
@@ -69,7 +84,13 @@ const MovieDetail = () => {
           <h3>Overview</h3>
           <p>{movieDetail.overview}</p>
           <div className="btns">
-            <button className="btn">Watch Trailer</button>
+            <a
+              href={`https://www.youtube.com/embed/${movieKey}`}
+              className="btn"
+              target="_blank"
+            >
+              Watch Trailer
+            </a>
             <a
               href={movieDetail.homepage}
               className="btn"
